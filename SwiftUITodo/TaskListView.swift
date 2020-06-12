@@ -15,7 +15,7 @@ struct TaskListView: View {
 
   var body: some View {
     List {
-      TextField($draftTitle, placeholder: Text("Create a New Task..."), onCommit: self.createTask)
+      TextField("Create a New Task...", text: $draftTitle, onCommit: self.createTask)
       ForEach(self.userData.tasks) { task in
         TaskItemView(task: task, isEditing: self.$isEditing)
       }
@@ -34,5 +34,11 @@ struct TaskListView: View {
     let newTask = Task(title: self.draftTitle, isDone: false)
     self.userData.tasks.insert(newTask, at: 0)
     self.draftTitle = ""
+  }
+}
+
+struct TaskListView_Previews: PreviewProvider {
+  static var previews: some View {
+    TaskListView().environmentObject(UserData())
   }
 }

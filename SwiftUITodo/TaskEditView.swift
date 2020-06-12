@@ -22,15 +22,15 @@ struct TaskEditView: View {
     let inset = EdgeInsets(top: -8, leading: -10, bottom: -7, trailing: -10)
     return VStack(alignment: .leading, spacing: 0) {
       TextField(
-        self.draftTitle.binding,
-        placeholder: Text("Enter New Title..."),
+        "Enter New Title...",
+        text: self.draftTitle.projectedValue,
         onEditingChanged: { _ in self.updateTask() },
         onCommit: {}
       )
       .background(
         RoundedRectangle(cornerRadius: 5)
           .fill(Color.clear)
-          .border(Color(red: 0.7, green: 0.7, blue: 0.7), width: 1 / UIScreen.main.scale, cornerRadius: 5)
+          .border(Color(red: 0.7, green: 0.7, blue: 0.7), width: 1 / UIScreen.main.scale)
           .padding(inset)
       )
       .padding(EdgeInsets(
@@ -47,6 +47,6 @@ struct TaskEditView: View {
 
   private func updateTask() {
     guard let index = self.userData.tasks.firstIndex(of: self.task) else { return }
-    self.userData.tasks[index].title = self.draftTitle.value
+    self.userData.tasks[index].title = self.draftTitle.wrappedValue
   }
 }
